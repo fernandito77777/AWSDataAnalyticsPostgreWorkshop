@@ -125,8 +125,6 @@ select * FROM pg_catalog.pg_extension;
 
 you will see that there is a pglogical running. Means that we have successfully enabled the CDC.
 
-    ![](../Assets/SetupDB/58.png)
-
 59. press `q` in keyboard to exit
 60. type `\q` to quit postgres
 61. type `exit` on postgres user to logout
