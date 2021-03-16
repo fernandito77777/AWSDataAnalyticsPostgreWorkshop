@@ -24,7 +24,10 @@ Now, we need to make the replication Instance.
     ![](../Assets/TransferDB/13.png)
 14. scroll down and click `create`
 
+It will take a while to provision it.
+
 Then, the endpoints, which acts as a connector between the database and data lake. We will make the source endpoint first.
+
 15. click `Endpoints` at the left menu
 16. click `create endpoint`
 17. select `source endpoint`
