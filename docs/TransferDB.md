@@ -47,6 +47,7 @@ you will see the successful connection.
 26. click `create endpoint`
 
 Before going to the target endpoint, we need to create the permission to access the data lake.
+
 27. go to [IAM Console](https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/roles)
 28. click `Create role`
 29. in AWS services, choose `DMS`
@@ -55,23 +56,27 @@ Before going to the target endpoint, we need to create the permission to access 
 32. click the checkbox on the left side
 33. click `next:tags`
     ![](../Assets/TransferDB/33.png)
+
 34. click `next:review`
 35. in review page, fill the role name as `DMSAccessS3Role`
 36. click `create role`
     ![](../Assets/TransferDB/36.png)
+
 37. In role page on IAM, search the role name of `DMSAccessS3Role` and click the name of the role
     ![](../Assets/TransferDB/37.png)
+
 38. copy the Role ARN at the top of the page
     ![](../Assets/TransferDB/38.png)
 
 Now, we are going to create the target endpoint
+
 39. go to [DMS Console](https://ap-southeast-1.console.aws.amazon.com/dms/v2/home?region=ap-southeast-1#endpointList)
 40. click `Create endpoint` in endpoint homepage
 41. click `target endpoint`
 42. in endpoint identifier, fill `Datalake`
 43. in target engine, choose S3
 44. in service access role ARN, fill the Role ARN.
-45. in bucket name, fill the bucket name of the data lake we have created.
+45. in bucket name, fill the bucket name of the data lake we have created. `yourname-datalake-workshop`
 46. in endpoint-specific settings, fill the extra connection attributes `addColumnName=true`
     ![](../Assets/TransferDB/46.png)
 47. open `test endpoint connection` option
