@@ -5,7 +5,7 @@ To do the Workshop, we will create the database and the network automatically us
 
 Then, after that, we are going to setup the Bastion host. This will be used to connect to the database
 
-2. go to [this link](https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/)
+2. go to [CloudFormation Console](https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/)
 3. click `Create Stack`
 4. click `Template is Ready`
 5. click `Upload a template file` on specify template
@@ -22,7 +22,7 @@ This will take a while.
 
 Once you are done, we are going to create the EC2, which will act as a bridge to the database.
 
-12. go to [this link](https://ap-southeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-southeast-1#Instances:)
+12. go to [EC2 Console](https://ap-southeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-southeast-1#Instances:)
 13. Click `Launch Instances`
 14. choose `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type` and click `select`
 15. In instance type, choose `t2.micro`, and click `Next: configure instance details`
@@ -72,7 +72,7 @@ this will take a while.
 
 During EC2 creation, let's create the datalake
 
-39. go to [this link](https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1#)
+39. go to [S3 Console](https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1#)
 40. click `create bucket`
 41. in bucket name, type `yourname-datalake-workshop`
 42. in region, choose `Singapore`
@@ -80,7 +80,7 @@ During EC2 creation, let's create the datalake
 
 Now, let's go back to your EC2.
 
-44. go to [this link](https://ap-southeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-southeast-1#Instances:)
+44. go to [EC2 Console](https://ap-southeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-southeast-1#Instances:)
 45. click your instance and click connect
     ![](../Assets/SetupDB/45.png)
 46. go to ssh client
@@ -91,7 +91,7 @@ Now, let's go back to your EC2.
 
 you will be connected to your ec2. Now we need to setup our RDS Postgre
 
-51. go to [this link](https://ap-southeast-1.console.aws.amazon.com/rds/home?region=ap-southeast-1#databases:)
+51. go to [RDS Console](https://ap-southeast-1.console.aws.amazon.com/rds/home?region=ap-southeast-1#databases:)
 52. click `rdspostgre`
 53. copy the endpoint of your database. you may paste it on your text editor.
     ![](../Assets/SetupDB/53.png)

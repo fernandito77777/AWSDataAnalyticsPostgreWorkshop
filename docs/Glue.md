@@ -2,7 +2,7 @@
 
 Now, we are going to use Glue data catalog to act as a metadata and connection between datalake and the ETL service in AWS have.
 to detect the datalake, glue will use crawler to crawl and create the metadata.
-1. Go to [this link](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers)
+1. Go to [Glue crawler console](https://ap-southeast-1.console.aws.amazon.com/glue/home?region=ap-southeast-1#catalog:tab=crawlers)
 2. in crawler menu, click `Add crawler`
 3. in crawler name, fill `DatalakeCrawler`
 4. in specify crawler source type, click `next`

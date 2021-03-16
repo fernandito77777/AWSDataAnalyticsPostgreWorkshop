@@ -4,7 +4,7 @@ Now, we are going to use DMS (Database Migration Servivce) as our real-time tran
 
 First, we need to make the subnet group.
 
-1. Go to [this link](https://ap-southeast-1.console.aws.amazon.com/dms/v2/home?region=ap-southeast-1#firstRun)
+1. Go to [DMS Console](https://ap-southeast-1.console.aws.amazon.com/dms/v2/home?region=ap-southeast-1#firstRun)
 2. click `subnet groups`
 3. click `create subnet group`
 4. in subnet group page, fill the name as `PostgreToS3SG`
@@ -44,7 +44,7 @@ you will see the successful connection.
 26. click `create endpoint`
 
 Before going to the target endpoint, we need to create the permission to access the data lake.
-27. go to [this link](https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/roles)
+27. go to [IAM Console](https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/roles)
 28. click `Create role`
 29. in AWS services, choose `DMS`
 30. click `next:permissions`
@@ -62,7 +62,7 @@ Before going to the target endpoint, we need to create the permission to access 
     ![](../Assets/TransferDB/38.png)
 
 Now, we are going to create the target endpoint
-39. go to [this link](https://ap-southeast-1.console.aws.amazon.com/dms/v2/home?region=ap-southeast-1#endpointList)
+39. go to [DMS Console](https://ap-southeast-1.console.aws.amazon.com/dms/v2/home?region=ap-southeast-1#endpointList)
 40. click `Create endpoint` in endpoint homepage
 41. click `target endpoint`
 42. in endpoint identifier, fill `Datalake`
@@ -105,7 +105,7 @@ it will take several minutes to complete.
 
 Once it's completed, we need to check the data lake
 
-65. go to [this link](https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1)
+65. go to [S3 Console](https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1)
 66. click your datalake name `yourname-datalake-workshop`
 67. you will see the folder `public` and contains every table inside.
     ![](../Assets/TransferDB/67.png)

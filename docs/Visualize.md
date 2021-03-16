@@ -1,7 +1,7 @@
 # Visualize data with Quicksight
 
 There is a tool to visualize the data properly on your data lake on AWS, called Quicksight. Now, we are trying to use it.
-1. Go to [this link](https://quicksight.aws.amazon.com/sn/start)
+1. Go to [QuickSight Console](https://quicksight.aws.amazon.com/sn/start)
 2. click `Sign up for QuickSight`
 3. Choose `Standard` Edition and click `Continue`
 4. select `Singapore` as a region
@@ -28,7 +28,7 @@ We are going to use SPICE as our caching data. Will be convered on the later ste
 
 Now, we are going to create 1 dashboard
 
-18. go to [this link](https://ap-southeast-1.quicksight.aws.amazon.com/sn/start/analyses)
+18. go to [QuickSight Console](https://ap-southeast-1.quicksight.aws.amazon.com/sn/start/analyses)
 19. click `New Analysis` on Analyses menu
 20. click `New Dataset`
 21. click `Athena` as dataset
