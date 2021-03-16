@@ -4,6 +4,7 @@ To do the Workshop, we will create the database and the network automatically us
 1. Download this [Infrastructure Template](../Assets/SetupDB/Template.json)
 
 Then, after that, we are going to setup the Bastion host. This will be used to connect to the database
+
 2. go to [this link](https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/)
 3. click `Create Stack`
 4. click `Template is Ready`
