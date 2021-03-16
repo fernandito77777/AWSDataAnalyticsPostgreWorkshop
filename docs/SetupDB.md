@@ -123,9 +123,9 @@ create extension pglogical;
 select * FROM pg_catalog.pg_extension;
 ```
 
-    ![](../Assets/SetupDB/58.png)
-
 you will see that there is a pglogical running. Means that we have successfully enabled the CDC.
+
+    ![](../Assets/SetupDB/58.png)
 
 59. press `q` in keyboard to exit
 60. type `\q` to quit postgres
