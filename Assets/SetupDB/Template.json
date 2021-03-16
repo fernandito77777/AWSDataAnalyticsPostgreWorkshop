@@ -1,0 +1,476 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "DMSRDSVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "InstanceTenancy": "default",
+        "EnableDnsSupport": true,
+        "EnableDnsHostnames": true,
+        "Tags": [
+            {
+              "Key": "Name",
+              "Value": "DMSRDSVPC"
+            }
+          ]
+      }
+    },
+    "Public1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "AvailabilityZone": "ap-southeast-1a",
+        "VpcId": {
+          "Ref": "DMSRDSVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Public1"
+          }
+        ],
+        "MapPublicIpOnLaunch" :false
+      }
+    },
+    "Public2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.1.0/24",
+        "AvailabilityZone": "ap-southeast-1b",
+        "VpcId": {
+          "Ref": "DMSRDSVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Public2"
+          }
+        ],
+        "MapPublicIpOnLaunch" :false
+      }
+    },
+    "Private1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.100.0/24",
+        "AvailabilityZone": "ap-southeast-1a",
+        "VpcId": {
+          "Ref": "DMSRDSVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Private1"
+          }
+        ],
+        "MapPublicIpOnLaunch" :false
+      }
+    },
+    "Private2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.101.0/24",
+        "AvailabilityZone": "ap-southeast-1b",
+        "VpcId": {
+          "Ref": "DMSRDSVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Private2"
+          }
+        ],
+        "MapPublicIpOnLaunch" :false
+      }
+    },
+    "RDSVPCIGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "DMSLab-IGW"
+          }
+        ]
+      }
+    },
+    "NatPublicIP" : {
+     "DependsOn" : "DMSRDSVPC",
+     "Type" : "AWS::EC2::EIP",
+     "Properties" : {
+        "Domain" : "vpc"
+     }
+    },
+    "NatGateway": {
+      "DependsOn" : "NatPublicIP",
+      "Type" : "AWS::EC2::NatGateway",
+      "Properties" : {
+          "AllocationId" : { "Fn::GetAtt" : ["NatPublicIP", "AllocationId"]},
+          "SubnetId" :  { "Ref" : "Public1"},
+          "Tags" : [ 
+            {
+              "Key" : "Name", 
+              "Value" : "NatGateway" 
+            } 
+          ]
+      }
+    },
+
+    "dopt1b68e47c": {
+        "Type": "AWS::EC2::DHCPOptions",
+        "Properties": {
+          "DomainName": "ec2.internal",
+          "DomainNameServers": [
+            "AmazonProvidedDNS"
+          ]
+        }
+      },
+      "VPCNACL": {
+        "Type": "AWS::EC2::NetworkAcl",
+        "Properties": {
+          "VpcId": {
+            "Ref": "DMSRDSVPC"
+          }
+        }
+      },
+      "PrivateRTB": {
+        "Type": "AWS::EC2::RouteTable",
+        "Properties": {
+          "VpcId": {
+            "Ref": "DMSRDSVPC"
+          },
+           "Tags": [
+            {
+              "Key": "Network",
+              "Value": "Private"
+            },
+            {
+              "Key": "Nane",
+              "Value": "PrivateRouteTable"
+            }
+          ]
+        }
+      },
+      "PublicRTB": {
+        "Type": "AWS::EC2::RouteTable",
+        "Properties": {
+          "VpcId": {
+            "Ref": "DMSRDSVPC"
+          },
+           "Tags": [
+            {
+              "Key": "Network",
+              "Value": "Public"
+            },
+            {
+              "Key": "Name",
+              "Value": "PublicRouteTable"
+            }
+          ]
+        }
+      },
+      "sgdefault": {
+        "Type": "AWS::EC2::SecurityGroup",
+        "Properties": {
+          "GroupDescription": "default VPC security group",
+          "VpcId": {
+            "Ref": "DMSRDSVPC"
+          }
+        }
+      },
+      "acl1": {
+        "Type": "AWS::EC2::NetworkAclEntry",
+        "Properties": {
+          "CidrBlock": "0.0.0.0/0",
+          "Egress": true,
+          "Protocol": -1,
+          "RuleAction": "allow",
+          "RuleNumber": 100,
+          "NetworkAclId": {
+            "Ref": "VPCNACL"
+          }
+        }
+      },
+      "acl2": {
+        "Type": "AWS::EC2::NetworkAclEntry",
+        "Properties": {
+          "CidrBlock": "0.0.0.0/0",
+          "Protocol": -1,
+          "RuleAction": "allow",
+          "RuleNumber": 100,
+          "NetworkAclId": {
+            "Ref": "VPCNACL"
+          }
+        }
+      },
+      "subnetacl1": {
+        "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+        "Properties": {
+          "NetworkAclId": {
+            "Ref": "VPCNACL"
+          },
+          "SubnetId": {
+            "Ref": "Public1"
+          }
+        }
+      },
+      "subnetacl2": {
+        "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+        "Properties": {
+          "NetworkAclId": {
+            "Ref": "VPCNACL"
+          },
+          "SubnetId": {
+            "Ref": "Public2"
+          }
+        }
+      },
+      "subnetacl3": {
+        "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+        "Properties": {
+          "NetworkAclId": {
+            "Ref": "VPCNACL"
+          },
+          "SubnetId": {
+            "Ref": "Private1"
+          }
+        }
+      },
+      "subnetacl4": {
+        "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+        "Properties": {
+          "NetworkAclId": {
+            "Ref": "VPCNACL"
+          },
+          "SubnetId": {
+            "Ref": "Private2"
+          }
+        }
+      },
+      "gw1": {
+        "Type": "AWS::EC2::VPCGatewayAttachment",
+        "Properties": {
+          "VpcId": {
+            "Ref": "DMSRDSVPC"
+          },
+          "InternetGatewayId": {
+            "Ref": "RDSVPCIGW"
+          }
+        }
+      },
+      "subnetroute1": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "RouteTableId": {
+            "Ref": "PrivateRTB"
+          },
+          "SubnetId": {
+            "Ref": "Private1"
+          }
+        }
+      },
+      "subnetroute2": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "RouteTableId": {
+            "Ref": "PrivateRTB"
+          },
+          "SubnetId": {
+            "Ref": "Private2"
+          }
+        }
+      },
+      "subnetroute3": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "RouteTableId": {
+            "Ref": "PublicRTB"
+          },
+          "SubnetId": {
+            "Ref": "Public1"
+          }
+        }
+      },
+      "subnetroute4": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "RouteTableId": {
+            "Ref": "PublicRTB"
+          },
+          "SubnetId": {
+            "Ref": "Public2"
+          }
+        }
+      },
+      "route1": {
+        "Type": "AWS::EC2::Route",
+        "Properties": {
+          "DestinationCidrBlock": "0.0.0.0/0",
+          "RouteTableId": {
+            "Ref": "PrivateRTB"
+          },
+          "NatGatewayId": {
+            "Ref": "NatGateway"
+          }
+        }
+      },
+      "route2": {
+        "DependsOn": "gw1",
+        "Type": "AWS::EC2::Route",
+        "Properties": {
+          "DestinationCidrBlock": "0.0.0.0/0",
+          "RouteTableId": {
+            "Ref": "PublicRTB"
+          },
+          "GatewayId": {
+            "Ref": "RDSVPCIGW"
+          }
+        }
+      },
+      "dchpassoc1": {
+        "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+        "Properties": {
+          "VpcId": {
+            "Ref": "DMSRDSVPC"
+          },
+          "DhcpOptionsId": {
+            "Ref": "dopt1b68e47c"
+          }
+        }
+      },
+      "ingress1": {
+        "DependsOn": "sgdefault",
+        "Type": "AWS::EC2::SecurityGroupIngress",
+        "Properties": {
+          "GroupId": {
+            "Ref": "sgdefault"
+          },
+          "IpProtocol": "-1",
+          "SourceSecurityGroupId": {
+            "Ref": "sgdefault"
+          }
+        }
+      },
+      "egress1": {
+        "Type": "AWS::EC2::SecurityGroupEgress",
+        "Properties": {
+          "GroupId": {
+            "Ref": "sgdefault"
+          },
+          "IpProtocol": "-1",
+          "CidrIp": "0.0.0.0/0"
+        }
+      },
+      "RDSPostgre": {
+        "Type": "AWS::RDS::DBInstance",
+        "Properties": {
+            "AllocatedStorage": "500",
+            "AllowMajorVersionUpgrade": "false",
+            "AutoMinorVersionUpgrade": "true",
+            "DBInstanceClass": "db.t3.large",
+            "DBInstanceIdentifier": "RDSPostgre",
+            "Port": "5432",
+            "PubliclyAccessible": "true",
+            "StorageType": "gp2",
+            "BackupRetentionPeriod": "7",
+            "MasterUsername": "postgres",
+            "MasterUserPassword": "master123",
+            "PreferredBackupWindow": "04:00-04:30",
+            "PreferredMaintenanceWindow": "sun:05:20-sun:05:50",
+            "DBName": "dvdrental",
+            "Engine": "postgres",
+            "EngineVersion": "12.5",
+            "LicenseModel": "postgresql-license",
+            "DBSubnetGroupName": {
+                "Ref": "PostgreSubnetGroup"
+            },
+            "DBParameterGroupName": {
+                "Ref": "Postgre12ParamGroup"
+            },
+            "VPCSecurityGroups": [
+                {
+                    "Ref": "RDSPostgreSG"
+                }
+            ]
+        }
+    },
+    "PostgreSubnetGroup": {
+        "Type": "AWS::RDS::DBSubnetGroup",
+        "Properties": {
+            "DBSubnetGroupDescription": "Created from the RDS Management Console",
+            "SubnetIds": [
+                {
+                    "Ref": "Private1"
+                },
+                {
+                    "Ref": "Private2"
+                }
+            ]
+        }
+    },
+    "Postgre12ParamGroup": {
+        "Type": "AWS::RDS::DBParameterGroup",
+        "Properties": {
+          "Description": "Parameter for Ticket Database",
+          "Family": "postgres12",
+          "Parameters": {
+            "rds.logical_replication": "1",
+            "wal_sender_timeout": "0",
+            "max_wal_senders": "20",
+            "max_replication_slots": "50",
+            "shared_preload_libraries": "pglogical"
+          }
+        }
+    },
+    "RDSPostgreSG": {
+        "Type": "AWS::EC2::SecurityGroup",
+        "Properties": {
+            "GroupDescription": "RDS Security Group",
+            "VpcId": {
+                "Ref": "DMSRDSVPC"
+            },
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "RDSPostgreSG"
+                }
+            ]
+        }
+    },
+    "ingress2": {
+        "Type": "AWS::EC2::SecurityGroupIngress",
+        "Properties": {
+            "GroupId": {
+                "Ref": "RDSPostgreSG"
+            },
+            "IpProtocol": "tcp",
+            "FromPort": "5432",
+            "ToPort": "5432",
+            "CidrIp": "10.0.0.0/16"
+        }
+    },
+    "ingress3": {
+        "Type": "AWS::EC2::SecurityGroupIngress",
+        "Properties": {
+            "GroupId": {
+                "Ref": "RDSPostgreSG"
+            },
+            "IpProtocol": "tcp",
+            "FromPort": "5432",
+            "ToPort": "5432",
+            "CidrIp": "72.21.196.67/32"
+        }
+    },
+    "egress2": {
+        "Type": "AWS::EC2::SecurityGroupEgress",
+        "Properties": {
+            "GroupId": {
+                "Ref": "RDSPostgreSG"
+            },
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0"
+        }
+    }
+  }
+}
