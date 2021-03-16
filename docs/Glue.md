@@ -1,4 +1,4 @@
-# Transform data with Glue
+# Catalog the data with glue crawler and data catalog
 
 Now, we are going to use Glue data catalog to act as a metadata and connection between datalake and the ETL service in AWS have.
 to detect the datalake, glue will use crawler to crawl and create the metadata.
