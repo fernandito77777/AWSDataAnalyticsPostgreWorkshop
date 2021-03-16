@@ -154,6 +154,7 @@ Now, let's check the data
 73. for password, type `master123`
 
 74. in postgre, type `\l`
+
     ![](../Assets/SetupDB/74.png)
 
 you will see dvdrental database. Now, let's check the data
