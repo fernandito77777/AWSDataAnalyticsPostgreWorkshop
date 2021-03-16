@@ -1,7 +1,7 @@
 # AWS Data Analytics Postgre Workshop
 
 ### Architecture
-![](../Assets/DataAnalytics.jpg)
+![](Assets/DataAnalytics.jpg)
 
 ### Agenda
 1. [Setup Database and Datalake](docs/SetupDB.md)
