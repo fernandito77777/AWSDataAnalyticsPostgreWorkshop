@@ -36,7 +36,6 @@ JOIN dvdrental.payment pay ON cust.customer_id = pay.customer_id
 GROUP BY cust.customer_id, cust.first_name, cust.last_name
 ORDER BY cust.customer_id
 ```
-    ![](../Assets/Athena/12.png)
 
 13. Check most rented film and total of orders
 ```
@@ -54,7 +53,6 @@ GROUP BY film.film_id, film.title, cat.name
 ORDER BY Total_Order DESC
 LIMIT 10
 ```
-    ![](../Assets/Athena/13.png)
 
 14. Check most city rented a film on
 ```
@@ -68,6 +66,5 @@ GROUP BY city.city
 ORDER BY TotalCustomer DESC
 LIMIT 10
 ```
-    ![](../Assets/Athena/14.png)
 
 [BACK TO WORKSHOP GUIDE](../README.md)

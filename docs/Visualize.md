@@ -4,19 +4,22 @@ There is a tool to visualize the data properly on your data lake on AWS, called 
 1. Go to [QuickSight Console](https://quicksight.aws.amazon.com/sn/start)
 2. click `Sign up for QuickSight`
 3. Choose `Standard` Edition and click `Continue`
-4. select `Singapore` as a region
-5. Fill the quicksight account name as `yourname-quicksight-workshop`
-6. fill your email address
-7. Check `Amazon S3`
-8. Select your data lake `yourname-datalake-workshop`
-9. click `finish`
-10. click `Finish` at the registration page
+4. Fill the quicksight account name as `yourname-quicksight-workshop`
+5. fill your email address
+6. Check `Amazon S3`
+7. Select your data lake `yourname-datalake-workshop`
+8. click `finish`
+9. click `Finish` at the registration page
 
 It will display that you have signed up on quicksight`
 
-11. click `Go to Amazon QuickSight`
+10. click `Go to Amazon QuickSight`
 
-We are going to use SPICE as our caching data. Will be convered on the later step. First, let's provision the SPICE capacity.
+Now, we need to change the region
+
+11. On the top right of your profile, click the logo, click `US East (N.Virginia)` to `Singapore`
+
+Then, We are going to use SPICE as our caching data. Will be convered on the later step. First, let's provision the SPICE capacity.
 
 12. click your account logo on right top, and click `Manage QuickSight`
 13. click `SPICE capacity`

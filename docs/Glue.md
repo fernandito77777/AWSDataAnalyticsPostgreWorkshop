@@ -7,7 +7,7 @@ to detect the datalake, glue will use crawler to crawl and create the metadata.
 3. in crawler name, fill `DatalakeCrawler`
 4. in specify crawler source type, click `next`
 5. in add data store page, choose `S3` as data store
-6. in include patch, click the folder icon, and choose your datalake location
+6. in include patch, click the folder icon, choose your datalake location `yourname-datalake-workshop`, and click `select`
 7. click `next`
     ![](../Assets/Glue/7.png)
 8. in add another data store, choose `no` and click `next`
