@@ -102,6 +102,7 @@ it will make you as a postgres user. Now, we can connect to our postgre RDS
 
 56. type `psql -h <your endpoint goes here>`
 57. for password, type `master123`
+
     ![](../Assets/SetupDB/57.png)
 
 you will be connected to your database. Now, we need to turn on the CDC for the postgres for the migration step later.
@@ -121,6 +122,7 @@ Now, we need to turn on the CDC on RDS.
 create extension pglogical;
 select * FROM pg_catalog.pg_extension;
 ```
+
     ![](../Assets/SetupDB/58.png)
 
 you will see that there is a pglogical running. Means that we have successfully enabled the CDC.
