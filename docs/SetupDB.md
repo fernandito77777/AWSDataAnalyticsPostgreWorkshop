@@ -155,7 +155,7 @@ you will see dvdrental database. Now, let's check the data
 
 it will display the list of all tables on the database.
 
-Note in the data sample, there are columns that can't be migrated, and thus the data type either need to be changed, or drop the column. In production level case, we suggested to change the data type by using `ALTER TABLE` and see if the data is impacted. For this workshop case, we just need to drop it, for the sake of simplicity.
+Note in the data sample, there are columns that can't be migrated, and thus the data type either need to be changed, or drop the column. In production level case, we suggested to change the data type by using `ALTER TABLE` and refer to [this documentation](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source-PostgreSQL-DataTypes). For this workshop case, we just need to drop it, for the sake of simplicity.
 
 71. Execute this query
 ```
