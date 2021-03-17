@@ -129,44 +129,35 @@ you will see that there is a pglogical running. Means that we have successfully 
 60. type `\q` to quit postgres
 61. type `exit` on postgres user to logout
 
-We are going to take sample data
+We are going to take sample data.
 
-62. type `wget https://sp.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip`
+62. In postgres user, type `wget https://sp.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip`
 63. type `unzip dvdrental.zip`
 
-you will see dvdrental.tar file once you have executed the cli. Now, we are going to do a backup on the RDS. first, copy the file to the postgres user
+Now, execute the restore command to backup data.
 
-64. type `sudo su`
-65. type `cp dvdrental.tar /var/lib/postgresql/`
-66. type `cd /var/lib/postgresql/`
-67. type `chown -R postgres dvdrental.tar`
-68. type `exit`
-
-Now, login to postgre user to do the backup
-
-69. type `sudo su - postgres`
-70. Execute `pg_restore -h <your Endpoint here> -d dvdrental dvdrental.tar`
-71. input password as `master123`
+64. Execute `pg_restore -h <your Endpoint here> -d dvdrental dvdrental.tar`
+65. input password as `master123`
 
 Now, let's check the data
 
-72. type `psql -h <your endpoint goes here>`
-73. for password, type `master123`
+66. type `psql -h <your endpoint goes here>`
+67. for password, type `master123`
 
-74. in postgre, type `\l`
+68. in postgre, type `\l`
 
-    ![](../Assets/SetupDB/74.png)
+    ![](../Assets/SetupDB/68.png)
 
 you will see dvdrental database. Now, let's check the data
 
-75. in postgre, type `\c dvdrental`
-76. in postgre, type `\dt`
+69. in postgre, type `\c dvdrental`
+70. in postgre, type `\dt`
 
 it will display the list of all tables on the database.
 
 Note in the data sample, there are columns that can't be migrated, and thus the data type either need to be changed, or drop the column. In production level case, we suggested to change the data type by using `ALTER TABLE` and see if the data is impacted. For this workshop case, we just need to drop it, for the sake of simplicity.
 
-77. Execute this query
+71. Execute this query
 ```
 ALTER TABLE film
 DROP COLUMN fulltext;
