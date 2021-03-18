@@ -127,37 +127,36 @@ you will see that there is a pglogical running. Means that we have successfully 
 
 59. press `q` in keyboard to exit
 60. type `\q` to quit postgres
-61. type `exit` on postgres user to logout
 
 We are going to take sample data.
 
-62. In postgres user, type `wget https://sp.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip`
-63. type `unzip dvdrental.zip`
+61. In postgres user, type `wget https://sp.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip`
+62. type `unzip dvdrental.zip`
 
 Now, execute the restore command to backup data.
 
-64. Execute `pg_restore -h <your Endpoint here> -d dvdrental dvdrental.tar`
-65. input password as `master123`
+63. Execute `pg_restore -h <your Endpoint here> -d dvdrental dvdrental.tar`
+64. input password as `master123`
 
 Now, let's check the data
 
-66. type `psql -h <your endpoint goes here>`
-67. for password, type `master123`
+65. type `psql -h <your endpoint goes here>`
+66. for password, type `master123`
 
-68. in postgre, type `\l`
+67. in postgre, type `\l`
 
     ![](../Assets/SetupDB/68.png)
 
 you will see dvdrental database. Now, let's check the data
 
-69. in postgre, type `\c dvdrental`
-70. in postgre, type `\dt`
+68. in postgre, type `\c dvdrental`
+69. in postgre, type `\dt`
 
 it will display the list of all tables on the database.
 
 Note in the data sample, there are columns that can't be migrated, and thus the data type either need to be changed, or drop the column. In production level case, we suggested to change the data type by using `ALTER TABLE` and refer to [this documentation](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source-PostgreSQL-DataTypes). For this workshop case, we just need to drop it, for the sake of simplicity.
 
-71. Execute this query
+70. Execute this query
 ```
 ALTER TABLE film
 DROP COLUMN fulltext;
