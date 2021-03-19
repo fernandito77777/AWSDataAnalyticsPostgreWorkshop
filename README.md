@@ -12,3 +12,5 @@
 
 ## Note
 * The region will be on ap-southeast-1 (Singapore)
+* The instruction is for Mac/Linux user. Please download [PuTTY](https://www.putty.org/) for Windows user.
+* In first step, please refer to [this link](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) to connect your EC2 instance
