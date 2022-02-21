@@ -130,7 +130,7 @@ you will see that there is a pglogical running. Means that we have successfully 
 
 We are going to take sample data.
 
-61. In postgres user, type `wget https://sp.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip`
+61. In postgres user, type `wget https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip`
 62. type `unzip dvdrental.zip`
 
 Now, execute the restore command to backup data.
